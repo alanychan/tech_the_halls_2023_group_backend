@@ -15,9 +15,9 @@ SECRET_KEY = os.environ.get(
     )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DJANGO_DEBUG", "False") !="False"
+# DEBUG = os.environ.get("DJANGO_DEBUG", "False") !="False"
 # DEBUG = False
-# DEBUG = True
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 CORS_ALLOW_ALL_ORIGINS = True
@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'profiles.urls'
+ROOT_URLCONF = 'role_models.urls'
 
 TEMPLATES = [
     {
@@ -133,8 +133,8 @@ REST_FRAMEWORK = {
     	'rest_framework.authentication.SessionAuthentication',
     ],
 
-    'DEFAULT_FILTER_BACKENDS': [
-        'django_filters.rest_framework.DjangoFilterBackend',
-        'rest_framework.filters.SearchFilter'
-    ]
+    # 'DEFAULT_FILTER_BACKENDS': [
+    #     'django_filters.rest_framework.DjangoFilterBackend',
+    #     'rest_framework.filters.SearchFilter'
+    # ]
 }
