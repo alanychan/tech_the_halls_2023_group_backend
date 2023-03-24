@@ -1,1 +1,11 @@
 venv/
+.venv/
+__pycache__/
+.DS_Store
+*.sqlite3
+*.vscode
+staticfiles
+# Python temp files
+__pycache__/
+*.py[cod]
+*$py.class
