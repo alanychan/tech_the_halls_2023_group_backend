@@ -16,8 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+admin.site.index_title = 'Tech The Halls'
+admin.site.site_header = 'Tech The Halls'
+admin.site.site_title = 'Tech The Halls Group Project.'
+admin.site.site_url = '/users'
+
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('profiles/', include('profiles.urls')),
-    path('users/', include('users.urls')),
+    path('', include('users.urls')),
 ]
