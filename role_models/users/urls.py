@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path('users/', views.CustomUserList.as_view(), name='users-list'),
+    path('users/<int:pk>', views.CustomUserDetail.as_view(), name='users-detail'),
 
     path('category/', views.CategoryList.as_view(), name='category-list'),
     path('category/<int:pk>', views.CategoryDetail.as_view(), name='category-detail'),

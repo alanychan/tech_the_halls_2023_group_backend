@@ -13,6 +13,10 @@ class CustomUserList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save()
 
+class CustomUserDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
+
 
 class CategoryList(generics.ListCreateAPIView):
     queryset = Category.objects.all()
