@@ -4,13 +4,15 @@ from rest_framework.response import Response
 from .models import Hero
 from .serializers import HeroSerializer
 
-from django.http import Http404
+
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view , permission_classes
 from rest_framework import permissions
+from rest_framework.permissions import IsAdminUser
 
 # Create your views here.
 class HeroList(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get(self, request):
         hero = Hero.objects.all()
@@ -30,8 +32,8 @@ class HeroList(APIView):
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([IsAdminUser])
 def hero_detail_view(request, pk):
-    # permission_classes = [permissions.IsAdminUser]
 
     try:
         hero = Hero.objects.get(pk=pk)
