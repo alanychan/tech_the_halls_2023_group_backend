@@ -18,3 +18,14 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.username
+
+
+# class Question(models.Model):
+#     question = models.CharField(max_length=500)
+#     is_active = models.BooleanField(default=False)
+
+#     class Meta:
+#         ordering = ['question']
+
+#     def __str__(self):
+#         return self.category_name
