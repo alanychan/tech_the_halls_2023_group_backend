@@ -11,6 +11,7 @@ class HeroSerializer(serializers.Serializer):
     featured = serializers.BooleanField()
     date_created = serializers.DateTimeField()
 
+# Check
     def create(self, validated_data):
         return Hero.objects.create(**validated_data)
 
