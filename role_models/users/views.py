@@ -4,9 +4,8 @@ from rest_framework import status, permissions, generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .permissions import IsOwnerOrReadOnly
-
-from .serializers import CustomUserSerializer, CustomUserDetailSerializer
-from .models import CustomUser
+from .serializers import CustomUserSerializer, CustomUserDetailSerializer, CategorySerializer, CustomUserCategorySerializer
+from .models import CustomUser, Category
 
 # Create your views here.
 class CustomUserList(generics.ListCreateAPIView):
@@ -15,6 +14,28 @@ class CustomUserList(generics.ListCreateAPIView):
     
     def perform_create(self, serializer):
         serializer.save()
+
+# class CustomUserDetail(generics.RetrieveUpdateDestroyAPIView):
+#     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+
+#     queryset = CustomUser.objects.all()
+#     serializer_class = CustomUserSerializer
+
+class CategoryList(generics.ListCreateAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+class CustomUserCategoryList(generics.ListCreateAPIView):
+    queryset = CustomUser.user_categories.through.objects.all()
+    serializer_class = CustomUserCategorySerializer
+
+class CustomUserCategoryDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = CustomUser.user_categories.through.objects.all()
+    serializer_class = CustomUserCategorySerializer
 
 class CustomUserDetail(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
