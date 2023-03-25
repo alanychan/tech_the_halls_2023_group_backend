@@ -30,11 +30,11 @@ class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CategorySerializer
 
 class CustomUserCategoryList(generics.ListCreateAPIView):
-    queryset = CustomUser.user_categories.through.objects.all()
+    queryset = CustomUser.categories.through.objects.all()
     serializer_class = CustomUserCategorySerializer
 
 class CustomUserCategoryDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = CustomUser.user_categories.through.objects.all()
+    queryset = CustomUser.categories.through.objects.all()
     serializer_class = CustomUserCategorySerializer
 
 class CustomUserDetail(APIView):

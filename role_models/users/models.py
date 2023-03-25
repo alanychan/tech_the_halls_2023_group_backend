@@ -14,7 +14,7 @@ class Category(models.Model):
 
 class CustomUser(AbstractUser):
 
-    user_categories = models.ManyToManyField(Category, related_name="user_categories")
+    categories = models.ManyToManyField(Category, related_name="user_categories")
 
     def __str__(self):
         return self.username
