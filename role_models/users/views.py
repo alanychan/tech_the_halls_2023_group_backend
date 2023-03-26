@@ -1,6 +1,6 @@
 #from django.shortcuts import render
 from django.http import Http404
-from rest_framework import status, permissions, generics
+from rest_framework import status, permissions, generics, filters
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .permissions import IsOwnerOrReadOnly
@@ -11,6 +11,7 @@ from .models import CustomUser, Category
 class CustomUserList(generics.ListCreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
+    filter_backends = [filters.SearchFilter]
     
     def perform_create(self, serializer):
         serializer.save()
