@@ -1,4 +1,4 @@
-#from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import Http404
 from rest_framework import status, permissions, generics
 from rest_framework.views import APIView
@@ -54,6 +54,12 @@ class User_AnswersDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User_Answers.objects.all()
     serializer_class = User_AnswersSerializer
 
+class UserAnswersView(APIView):
+    def get(self, request, user_id):
+        user = get_object_or_404(CustomUser, id=user_id)
+        user_answers = User_Answers.objects.filter(user=user)
+        serializer = User_AnswersSerializer(user_answers, many=True)
+        return Response(serializer.data)
 
 class CustomUserDetail(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]

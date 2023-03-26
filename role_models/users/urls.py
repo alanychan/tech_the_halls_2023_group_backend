@@ -13,8 +13,7 @@ urlpatterns = [
 
     path('questions/', views.QuestionsList.as_view(), name='questions-list'),
     path('questions/<int:pk>', views.QuestionsDetail.as_view(), name='questions-detail'),
-
-    path('user-answers/', views.User_AnswersList.as_view(), name='user-answers-list'),
-    path('user-answers/<int:pk>/', views.User_AnswersDetail.as_view(), name='user-answers'),
+    
+    path('users/<int:user_id>/answers/', views.UserAnswersView.as_view(), name='user-answers'),
     
 ]

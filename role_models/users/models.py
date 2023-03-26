@@ -19,7 +19,7 @@ class Questions(models.Model):
 class CustomUser(AbstractUser):
     categories = models.ManyToManyField(Category, related_name="categories")
     questions = models.ManyToManyField(Questions, through='User_Answers')
-
+    
     def __str__(self):
         return self.username
 
