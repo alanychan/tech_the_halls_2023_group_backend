@@ -12,6 +12,7 @@ class CustomUserList(generics.ListCreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
     filter_backends = [filters.SearchFilter]
+    search_fields = ['username']
     
     def perform_create(self, serializer):
         serializer.save()
