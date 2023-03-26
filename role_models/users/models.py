@@ -18,7 +18,8 @@ class Questions(models.Model):
     
 class CustomUser(AbstractUser):
     categories = models.ManyToManyField(Category, related_name="categories")
-    # user_answers = models.ManyToManyField(Questions, related_name='answers')
+    questions = models.ManyToManyField(Questions, through='User_Answers')
+
     def __str__(self):
         return self.username
 
@@ -26,8 +27,9 @@ class User_Answers(models.Model):
     user = models.ForeignKey(CustomUser, related_name='custom_user', on_delete=models.CASCADE)
     question = models.ForeignKey(Questions, related_name='answers', on_delete=models.CASCADE)
     user_answer = models.CharField(max_length=255, null=True)
-    
-    
+
+    def __str__(self):
+        return f"{self.user_answer}"
 
 # class UserAnswer(models.Model):
 #     customUser = models.ForeignKey(CustomUser, related_name='answers', on_delete=models.CASCADE)
