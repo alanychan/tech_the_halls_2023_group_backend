@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .permissions import IsOwnerOrReadOnly
 from .serializers import CustomUserSerializer, CustomUserDetailSerializer, CategorySerializer, QuestionsSerializer
-from .serializers import CustomUserCategorySerializer, User_AnswersSerializer
+from .serializers import User_AnswersSerializer
 from .models import CustomUser, Category, Questions, User_Answers
 
 # Create your views here.
@@ -30,13 +30,13 @@ class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
-class CustomUserCategoryList(generics.ListCreateAPIView):
-    queryset = CustomUser.categories.through.objects.all()
-    serializer_class = CustomUserCategorySerializer
+# class CustomUserCategoryList(generics.ListCreateAPIView):
+#     queryset = CustomUser.categories.through.objects.all()
+#     serializer_class = CustomUserCategorySerializer
 
-class CustomUserCategoryDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = CustomUser.categories.through.objects.all()
-    serializer_class = CustomUserCategorySerializer
+# class CustomUserCategoryDetail(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = CustomUser.categories.through.objects.all()
+#     serializer_class = CustomUserCategorySerializer
 
 class QuestionsList(generics.ListCreateAPIView):
     queryset = Questions.objects.all()

@@ -8,12 +8,13 @@ urlpatterns = [
     path('category/', views.CategoryList.as_view(), name='category-list'),
     path('category/<int:pk>', views.CategoryDetail.as_view(), name='category-detail'),
     
-    path('user-categories/', views.CustomUserCategoryList.as_view(), name='user-category-list'),
-    path('user-categories/<int:pk>', views.CustomUserCategoryDetail.as_view(), name='user-category-detail'),
+    # path('user-categories/', views.CustomUserCategoryList.as_view(), name='user-category-list'),
+    # path('user-categories/<int:pk>', views.CustomUserCategoryDetail.as_view(), name='user-category-detail'),
 
     path('questions/', views.QuestionsList.as_view(), name='questions-list'),
     path('questions/<int:pk>', views.QuestionsDetail.as_view(), name='questions-detail'),
     
+    path('users-answers/', views.User_AnswersList.as_view(), name='quetions-answers'),
     path('users/<int:user_id>/answers/', views.UserAnswersView.as_view(), name='user-answers'),
     
 ]

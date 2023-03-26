@@ -24,12 +24,12 @@ class CustomUser(AbstractUser):
         return self.username
 
 class User_Answers(models.Model):
-    user = models.ForeignKey(CustomUser, related_name='custom_user', on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     question = models.ForeignKey(Questions, related_name='answers', on_delete=models.CASCADE)
-    user_answer = models.CharField(max_length=255, null=True)
+    answer = models.CharField(max_length=255, null=True)
 
     def __str__(self):
-        return f"{self.user_answer}"
+        return f"{self.answer}"
 
 # class UserAnswer(models.Model):
 #     customUser = models.ForeignKey(CustomUser, related_name='answers', on_delete=models.CASCADE)
