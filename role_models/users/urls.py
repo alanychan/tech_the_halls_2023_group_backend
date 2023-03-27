@@ -11,7 +11,5 @@ urlpatterns = [
     path('questions/', views.QuestionList.as_view(), name='questions-list'),
     path('questions/<int:pk>', views.QuestionDetail.as_view(), name='questions-detail'),
     
-    path('users-answers/', views.AnswerList.as_view(), name='quetions-answers'),
-    path('users/<int:pk>/answers/', views.AnswerDetail.as_view(), name='user-answers'),
-    
+    path('users-answers/', views.AnswerList.as_view(), name='quetions-answers'),    
 ]
