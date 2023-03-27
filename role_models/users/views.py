@@ -15,8 +15,8 @@ class CustomUserList(generics.ListCreateAPIView):
     filter_backends = [filters.SearchFilter]
     search_fields = ['username']
     
-    def perform_create(self, serializer):
-        serializer.save()
+    # def perform_create(self, serializer):
+    #     serializer.save()
 
 class CategoryList(generics.ListCreateAPIView):
     queryset = Category.objects.all()
@@ -78,7 +78,7 @@ class CustomUserDetail(APIView):
     def delete(self, request, pk):
         user = self.get_object(pk)
         data = request.data
-        serializer = CustomUserSerializer(instance=user, data=data)
+        serializer = CustomUserDetailSerializer(instance=user, data=data)
 
         if serializer.is_valid:
             user.delete()
