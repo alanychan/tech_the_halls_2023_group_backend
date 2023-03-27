@@ -1,11 +1,12 @@
-#from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import Http404
 from rest_framework import status, permissions, generics, filters
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .permissions import IsOwnerOrReadOnly
 from .serializers import CustomUserSerializer, CustomUserDetailSerializer, CategorySerializer, CustomUserCategorySerializer
-from .models import CustomUser, Category
+from .serializers import QuestionSerializer, AnswerSerializer
+from .models import CustomUser, Category, Question, Answer
 
 # Create your views here.
 class CustomUserList(generics.ListCreateAPIView):
@@ -24,17 +25,33 @@ class CategoryList(generics.ListCreateAPIView):
 class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+class QuestionList(generics.ListCreateAPIView):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+
+class QuestionDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
 
 class CustomUserCategoryList(generics.ListCreateAPIView):
     queryset = CustomUser.categories.through.objects.all()
     serializer_class = CustomUserCategorySerializer
-
+    
 class CustomUserCategoryDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = CustomUser.categories.through.objects.all()
     serializer_class = CustomUserCategorySerializer
 
+class AnswerList(generics.ListCreateAPIView):
+    queryset = Answer.objects.all()
+    serializer_class = AnswerSerializer
+
+class AnswerDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Answer.objects.all()
+    serializer_class = AnswerSerializer
+
 class CustomUserDetail(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+
 
     def get_object(self, pk):
         try:

@@ -1,15 +1,9 @@
 from rest_framework import serializers
-from .models import Category, CustomUser
+from .models import Category, CustomUser, Question, Answer
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = '__all__'
-    
-class CustomUserSerializer(serializers.ModelSerializer):
-    
-    class Meta:
-        model = CustomUser
         fields = '__all__'
 
 class CustomUserCategorySerializer(serializers.ModelSerializer):
@@ -17,17 +11,45 @@ class CustomUserCategorySerializer(serializers.ModelSerializer):
         model = CustomUser.categories.through
         fields = "__all__"
 
-class CustomUserDetailSerializer(serializers.ModelSerializer):
+class QuestionSerializer(serializers.ModelSerializer):    
+    class Meta:
+        model = Question
+        fields = '__all__'
+        
+class AnswerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Answer
+        fields = '__all__'
+
+    
+class CustomUserSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(many=True, read_only=True)
+    user_answers = AnswerSerializer(many=True, read_only=True)
+    question_answers = AnswerSerializer(many=True, read_only=True)
+
     class Meta:
         model = CustomUser
-        fields = ['username', 'first_name', 'last_name', 'email', 'categories']
+        fields = '__all__'
+        extra_kwargs = {"password":{"write_only":True}}        
+class CustomUserDetailSerializer(CustomUserSerializer):
+
+    class Meta:
+        model = CustomUser
+        fields = '__all__'
+
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'first_name', 'last_name', 'email', 'categories', 'user_answers']
     
     def update(self, instance, validated_data):
         instance.username = validated_data.get('username', instance.username)
         instance.first_name = validated_data.get('first_name', instance.first_name)
         instance.last_name = validated_data.get('last_name', instance.last_name)
         instance.email = validated_data.get('email', instance.email)
+        instance.categories = validated_data.get('categories', instance.categories)
+        instance.user_answers = validated_data.get('user_answers', instance.user_answers)
+        
         
         if password := validated_data.get('password'):
             instance.set_password(password)
@@ -36,3 +58,5 @@ class CustomUserDetailSerializer(serializers.ModelSerializer):
 
         instance.save()
         return instance
+
+    

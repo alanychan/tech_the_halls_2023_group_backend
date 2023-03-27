@@ -27,7 +27,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Application definition
 
 INSTALLED_APPS = [
-    'profiles.apps.ProfilesConfig',
+    # 'profiles.apps.ProfilesConfig',
     'rest_framework',
     'rest_framework.authtoken',
     'django.contrib.admin',
@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'hero.apps.HeroConfig',
 ]
-# AUTH_USER_MODEL = 'users.CustomUser'
 
 AUTH_USER_MODEL = 'users.CustomUser' 
 
