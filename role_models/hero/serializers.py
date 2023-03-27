@@ -3,7 +3,7 @@ from .models import Hero
 
 
 class HeroSerializer(serializers.Serializer):
-    id = serializers.ReadOnlyField();
+    id = serializers.ReadOnlyField()
     name = serializers.CharField(max_length=200)
     bio_pic = serializers.URLField()
     bio_text =serializers.CharField(max_length=None)
