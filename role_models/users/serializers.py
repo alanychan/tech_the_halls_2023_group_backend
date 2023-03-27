@@ -14,7 +14,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
 class CustomUserCategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = CustomUser.user_categories.through
+        model = CustomUser.categories.through
         fields = "__all__"
 
 class CustomUserDetailSerializer(serializers.ModelSerializer):
