@@ -62,8 +62,8 @@ class CustomUserDetailSerializer(CustomUserSerializer):
         instance.first_name = validated_data.get('first_name', instance.first_name)
         instance.last_name = validated_data.get('last_name', instance.last_name)
         instance.email = validated_data.get('email', instance.email)
-        instance.categories = validated_data.get('categories', instance.categories)
-        instance.user_answers = validated_data.get('user_answers', instance.user_answers)
+        # instance.categories = validated_data.get('categories', instance.categories)
+        # instance.user_answers = validated_data.get('user_answers', instance.user_answers)
         
         
         if password := validated_data.get('password'):
