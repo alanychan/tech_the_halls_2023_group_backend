@@ -35,10 +35,3 @@ class Answer(models.Model):
 
     def __str__(self):
         return f"{self.answer}"
-
-# class UserAnswer(models.Model):
-#     customUser = models.ForeignKey(CustomUser, related_name='answers', on_delete=models.CASCADE)
-#     answer = models.ForeignKey(Answer, related_name='user_answers', on_delete=models.CASCADE)
-    
-#     def __str__(self):
-#             return self.answer

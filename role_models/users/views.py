@@ -16,12 +16,6 @@ class CustomUserList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save()
 
-# class CustomUserDetail(generics.RetrieveUpdateDestroyAPIView):
-#     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
-
-#     queryset = CustomUser.objects.all()
-#     serializer_class = CustomUserSerializer
-
 class CategoryList(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
@@ -29,15 +23,6 @@ class CategoryList(generics.ListCreateAPIView):
 class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-
-# class CustomUserCategoryList(generics.ListCreateAPIView):
-#     queryset = CustomUser.categories.through.objects.all()
-#     serializer_class = CustomUserCategorySerializer
-
-# class CustomUserCategoryDetail(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = CustomUser.categories.through.objects.all()
-#     serializer_class = CustomUserCategorySerializer
-
 class QuestionList(generics.ListCreateAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
@@ -52,13 +37,6 @@ class AnswerList(generics.ListCreateAPIView):
 class AnswerDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
-
-# class AnswersView(APIView):
-#     def get(self, request, user_id):
-#         user = get_object_or_404(CustomUser, id=user_id)
-#         answers = Answers.objects.filter(user=user)
-#         serializer = AnswersSerializer(answers, many=True)
-#         return Response(serializer.data)
 
 class CustomUserDetail(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
