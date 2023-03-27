@@ -4,9 +4,9 @@ from rest_framework import status, permissions, generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .permissions import IsOwnerOrReadOnly
-from .serializers import CustomUserSerializer, CustomUserDetailSerializer, CategorySerializer, QuestionsSerializer
-from .serializers import User_AnswersSerializer
-from .models import CustomUser, Category, Questions, User_Answers
+from .serializers import CustomUserSerializer, CustomUserDetailSerializer, CategorySerializer, QuestionSerializer
+from .serializers import AnswerSerializer
+from .models import CustomUser, Category, Question, Answer
 
 # Create your views here.
 class CustomUserList(generics.ListCreateAPIView):
@@ -38,28 +38,27 @@ class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
 #     queryset = CustomUser.categories.through.objects.all()
 #     serializer_class = CustomUserCategorySerializer
 
-class QuestionsList(generics.ListCreateAPIView):
-    queryset = Questions.objects.all()
-    serializer_class = QuestionsSerializer
+class QuestionList(generics.ListCreateAPIView):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
 
-class QuestionsDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Questions.objects.all()
-    serializer_class = QuestionsSerializer
+class QuestionDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
 
-class User_AnswersList(generics.ListCreateAPIView):
-    queryset = User_Answers.objects.all()
-    serializer_class = User_AnswersSerializer
+class AnswerList(generics.ListCreateAPIView):
+    queryset = Answer.objects.all()
+    serializer_class = AnswerSerializer
+class AnswerDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Answer.objects.all()
+    serializer_class = AnswerSerializer
 
-class User_AnswersDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User_Answers.objects.all()
-    serializer_class = User_AnswersSerializer
-
-class UserAnswersView(APIView):
-    def get(self, request, user_id):
-        user = get_object_or_404(CustomUser, id=user_id)
-        user_answers = User_Answers.objects.filter(user=user)
-        serializer = User_AnswersSerializer(user_answers, many=True)
-        return Response(serializer.data)
+# class AnswersView(APIView):
+#     def get(self, request, user_id):
+#         user = get_object_or_404(CustomUser, id=user_id)
+#         answers = Answers.objects.filter(user=user)
+#         serializer = AnswersSerializer(answers, many=True)
+#         return Response(serializer.data)
 
 class CustomUserDetail(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]

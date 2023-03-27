@@ -9,7 +9,7 @@ class Category(models.Model):
     def __str__(self):
         return self.category_name
 
-class Questions(models.Model):
+class Question(models.Model):
     question = models.TextField()
     is_active = models.BooleanField(default=True)
 
@@ -18,14 +18,19 @@ class Questions(models.Model):
     
 class CustomUser(AbstractUser):
     categories = models.ManyToManyField(Category, related_name="categories")
-    questions = models.ManyToManyField(Questions, through='User_Answers')
     
     def __str__(self):
         return self.username
 
-class User_Answers(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    question = models.ForeignKey(Questions, related_name='answers', on_delete=models.CASCADE)
+class Answer(models.Model):
+    user = models.ForeignKey(
+        CustomUser, 
+        related_name="user_answers", 
+        on_delete=models.CASCADE)
+    question = models.ForeignKey(
+        Question, 
+        related_name='questions_answers', 
+        on_delete=models.CASCADE)
     answer = models.CharField(max_length=255, null=True)
 
     def __str__(self):
