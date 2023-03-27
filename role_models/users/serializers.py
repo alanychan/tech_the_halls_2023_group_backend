@@ -6,6 +6,11 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = '__all__'
 
+class CustomUserCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser.categories.through
+        fields = "__all__"
+
 class QuestionSerializer(serializers.ModelSerializer):    
     class Meta:
         model = Question
