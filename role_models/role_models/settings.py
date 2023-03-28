@@ -11,15 +11,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get(
     'DJANGO_SECRET_KEY',
-    'django-insecure-6f5fiv53l$d=%d_0_8&znvd!6&d3rfy-qowzswx^u)i-p_dsm6'
+    'b12c%k_^)jeoz-3l570&!qgtx4)s3zwoa^17&3-ije7(2$6xi7'
     )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = os.environ.get("DJANGO_DEBUG", "False") !="False"
+DEBUG = os.environ.get("DJANGO_DEBUG", "False") !="False"
 # DEBUG = False
-DEBUG = True
+# DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['*']
+CORS_ALLOW_ALL_ORIGINS = True
+CSRF_TRUSTED_ORIGINS = ['https://*.fly.dev']
+
 CORS_ALLOW_ALL_ORIGINS = True
 #CSRF_TRUSTED_ORIGINS = []
 
@@ -32,6 +36,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django.contrib.admin',
     'django.contrib.auth',
+    'corsheaders',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -44,9 +49,9 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = 'users.CustomUser' 
 
 MIDDLEWARE = [
-    #'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    #'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -73,7 +78,7 @@ TEMPLATES = [
     },
 ]
 
-#WSGI_APPLICATION = 'role_models.wsgi.application'
+WSGI_APPLICATION = 'role_models.wsgi.application'
 
 
 # Database
