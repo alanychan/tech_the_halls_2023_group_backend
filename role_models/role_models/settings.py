@@ -27,7 +27,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Application definition
 
 INSTALLED_APPS = [
-    'profiles.apps.ProfilesConfig',
+    # 'profiles.apps.ProfilesConfig',
     'rest_framework',
     'rest_framework.authtoken',
     'django.contrib.admin',
@@ -36,10 +36,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_filters',
     'users.apps.UsersConfig',
     'hero.apps.HeroConfig',
 ]
-# AUTH_USER_MODEL = 'users.CustomUser'
 
 AUTH_USER_MODEL = 'users.CustomUser' 
 
@@ -135,8 +135,8 @@ REST_FRAMEWORK = {
     	'rest_framework.authentication.SessionAuthentication',
     ],
 
-    # 'DEFAULT_FILTER_BACKENDS': [
-    #     'django_filters.rest_framework.DjangoFilterBackend',
-    #     'rest_framework.filters.SearchFilter'
-    # ]
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter'
+    ]
 }
