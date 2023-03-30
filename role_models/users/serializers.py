@@ -45,7 +45,18 @@ class CustomUserSerializer(serializers.Serializer):
           email = validated_data['email'],
           username = validated_data['username'],
           first_name = validated_data['first_name'],
-          last_name = validated_data['last_name']
+          last_name = validated_data['last_name'],
+          tagline = validated_data['tagline'],
+          city = validated_data['city'],
+          country = validated_data['country'],
+          profile_pic = validated_data['profile_pic'],
+          video = validated_data['video'],
+          linkedin = validated_data['linkedin'],
+          twitter = validated_data['twitter'],
+          blog = validated_data['blog'],
+          job_title = validated_data['blog'],
+          featured = validated_data['featured'],
+          pronouns = validated_data['pronouns']
         )
         user.set_password(validated_data['password'])
         user.save()
