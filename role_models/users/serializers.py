@@ -34,7 +34,19 @@ class CustomUserSerializer(serializers.Serializer):
     first_name = serializers.CharField(max_length=200)
     last_name = serializers.CharField(max_length=200)
     password = serializers.CharField(write_only = True, required = True , validators =[validate_password])
-    
+
+    tagline = serializers.CharField(max_length=200)
+    city = serializers.CharField(max_length=200)
+    country = serializers.CharField(max_length=200)
+    profile_pic = serializers.URLField()
+    video = serializers.URLField()
+    linkedin = serializers.URLField()
+    twitter = serializers.URLField()
+    blog = serializers.URLField()
+    job_title = serializers.CharField(max_length=200)
+    featured = serializers.BooleanField()
+    pronouns = serializers.CharField(max_length=200)
+
     class Meta:
         model = CustomUser
         fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name']

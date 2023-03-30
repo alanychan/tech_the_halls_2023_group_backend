@@ -27,8 +27,8 @@ class Question(models.Model):
     
 class CustomUser(AbstractUser):
 
-    tagline = models.CharField(max_length=200)
-    city = models.CharField(max_length=200)
+    tagline = models.CharField(max_length=200, blank=True)
+    city = models.CharField(max_length=200, blank=True)
     country = models.CharField(max_length=200, blank=True)
     profile_pic = models.URLField(blank=True)
     video = models.URLField(blank=True)
