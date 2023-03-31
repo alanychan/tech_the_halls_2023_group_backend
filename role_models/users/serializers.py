@@ -66,7 +66,7 @@ class CustomUserSerializer(serializers.Serializer):
           linkedin = validated_data['linkedin'],
           twitter = validated_data['twitter'],
           blog = validated_data['blog'],
-          job_title = validated_data['blog'],
+          job_title = validated_data['job_title'],
           featured = validated_data['featured'],
           pronouns = validated_data['pronouns']
         )
@@ -87,6 +87,17 @@ class CustomUserDetailSerializer(CustomUserSerializer):
         instance.email = validated_data.get('email', instance.email)
         # instance.categories = validated_data.get('categories', instance.categories)
         # instance.user_answers = validated_data.get('user_answers', instance.user_answers)
+        instance.tagline = validated_data.get('tagline', instance.tagline),
+        instance.city = validated_data.get('city', instance.city),
+        instance.country = validated_data.get('country', instance.country),
+        instance.profile_pic = validated_data.get('profile_pic', instance.profile_pic),
+        instance.video = validated_data.get('video', instance.video),
+        instance.linkedin = validated_data.get('linkedin', instance.linkedin),
+        instance.twitter = validated_data.get('twitter', instance.twitter),
+        instance.blog = validated_data.get('blog', instance.blog),
+        instance.job_title = validated_data.get('job_title', instance.job_title),
+        instance.featured = validated_data.get('featured', instance.featured),
+        instance.pronouns = validated_data.get('pronouns', instance.pronouns)
         
         
         if password := validated_data.get('password'):
