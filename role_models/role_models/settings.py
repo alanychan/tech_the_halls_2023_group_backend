@@ -19,8 +19,8 @@ DEBUG = os.environ.get("DJANGO_DEBUG", "False") !="False"
 # DEBUG = False
 # DEBUG = True
 
-# ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'tech-diversity-backend.fly.dev']
+#ALLOWED_HOSTS = ['*']
 CORS_ALLOW_ALL_ORIGINS = True
 CSRF_TRUSTED_ORIGINS = ['https://*.fly.dev']
 

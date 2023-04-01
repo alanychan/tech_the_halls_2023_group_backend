@@ -26,6 +26,19 @@ class Question(models.Model):
         return self.question   
     
 class CustomUser(AbstractUser):
+
+    tagline = models.CharField(max_length=200, blank=True)
+    city = models.CharField(max_length=200, blank=True)
+    country = models.CharField(max_length=200, blank=True)
+    profile_pic = models.URLField(blank=True)
+    video = models.URLField(blank=True)
+    linkedin = models.URLField(blank=True)
+    twitter = models.URLField(blank=True)
+    blog = models.URLField(blank=True)
+    job_title = models.CharField(max_length=200, blank=True)
+    featured = models.BooleanField(default=False)
+    pronouns = models.CharField(max_length=200, blank=True)
+
     categories = models.ManyToManyField(Category, related_name="categories")
     
     def __str__(self):
