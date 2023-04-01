@@ -3,11 +3,10 @@ from django.http import Http404
 from rest_framework import status, permissions, generics, filters
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .permissions import IsOwnerOrReadOnly
+from .permissions import  IsOwnerOrReadOnly, IsAdminOnly
 from .serializers import CustomUserSerializer, CustomUserDetailSerializer, CategorySerializer, CustomUserCategorySerializer
 from .serializers import QuestionSerializer, AnswerSerializer
 from .models import CustomUser, Category, Question, Answer
-from django.views.decorators.csrf import requires_csrf_token
 
 # Create your views here.
 class CustomUserList(generics.ListCreateAPIView):
@@ -53,7 +52,7 @@ class AnswerDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = AnswerSerializer
 
 class CustomUserDetail(APIView):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
 
     def get_object(self, pk):
         try:
