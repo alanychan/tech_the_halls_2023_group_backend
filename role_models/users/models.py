@@ -23,8 +23,8 @@ class Question(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.question   
-    
+        return self.question
+
 class CustomUser(AbstractUser):
 
     tagline = models.CharField(max_length=200, blank=True)
@@ -39,21 +39,23 @@ class CustomUser(AbstractUser):
     featured = models.BooleanField(default=False)
     pronouns = models.CharField(max_length=200, blank=True)
 
-    categories = models.ManyToManyField(Category, related_name="categories")
-    
+    is_published = models.BooleanField(default=False)
+
+    categories = models.ManyToManyField(Category, related_name="categories", blank=True)
+
     def __str__(self):
         return self.username
 
 class Answer(models.Model):
     user = models.ForeignKey(
-        CustomUser, 
-        related_name="user_answers", 
+        CustomUser,
+        related_name="user_answers",
         on_delete=models.CASCADE)
     question = models.ForeignKey(
-        Question, 
-        related_name='questions_answers', 
+        Question,
+        related_name='questions_answers',
         on_delete=models.CASCADE)
-    answer = models.CharField(max_length=255, null=True)
+    answer = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return f"{self.answer}"

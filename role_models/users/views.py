@@ -7,6 +7,7 @@ from .permissions import IsOwnerOrReadOnly
 from .serializers import CustomUserSerializer, CustomUserDetailSerializer, CategorySerializer, CustomUserCategorySerializer
 from .serializers import QuestionSerializer, AnswerSerializer
 from .models import CustomUser, Category, Question, Answer
+from django.views.decorators.csrf import requires_csrf_token
 
 # Create your views here.
 class CustomUserList(generics.ListCreateAPIView):
@@ -14,11 +15,13 @@ class CustomUserList(generics.ListCreateAPIView):
     serializer_class = CustomUserSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['username']
-    
+
     # def perform_create(self, serializer):
     #     serializer.save()
 
 class CategoryList(generics.ListCreateAPIView):
+    permission_classes = [permissions.IsAdminUser]
+
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
@@ -36,7 +39,7 @@ class QuestionDetail(generics.RetrieveUpdateDestroyAPIView):
 class CustomUserCategoryList(generics.ListCreateAPIView):
     queryset = CustomUser.categories.through.objects.all()
     serializer_class = CustomUserCategorySerializer
-    
+
 class CustomUserCategoryDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = CustomUser.categories.through.objects.all()
     serializer_class = CustomUserCategorySerializer
@@ -52,13 +55,14 @@ class AnswerDetail(generics.RetrieveUpdateDestroyAPIView):
 class CustomUserDetail(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
-
     def get_object(self, pk):
         try:
-            return CustomUser.objects.get(pk=pk)
+            instance = CustomUser.objects.get(pk=pk)
+            self.check_object_permissions(self.request,instance)
+            return instance
         except CustomUser.DoesNotExist:
             raise Http404
-    
+
     def get(self, request, pk):
         user = self.get_object(pk)
         serializer = CustomUserDetailSerializer(user)
