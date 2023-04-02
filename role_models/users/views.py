@@ -3,13 +3,25 @@ from django.http import Http404
 from rest_framework import status, generics, filters
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .permissions import  IsOwnerOrReadOnly, IsAdminOnly
+from .permissions import  IsOwnerOrAdmin, IsAdminOnly
 from .serializers import CustomUserSerializer, CustomUserDetailSerializer, CategorySerializer, CustomUserCategorySerializer
 from .serializers import QuestionSerializer, AnswerSerializer
 from .models import CustomUser, Category, Question, Answer
+# from random import choice
+# from string import digits, ascii_letters
 
 # Create your views here.
+
+# def passwordGenerator():
+#     password = ''
+#     for password_length in range(8):
+#         password += choice(digits+ascii_letters)
+#     return render({password})
+
+
 class CustomUserList(generics.ListCreateAPIView):
+    permission_classes = [IsOwnerOrAdmin]
+
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
     filter_backends = [filters.SearchFilter]
@@ -42,31 +54,31 @@ class QuestionDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = QuestionSerializer
 
 class CustomUserCategoryList(generics.ListCreateAPIView):
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrAdmin]
 
     queryset = CustomUser.categories.through.objects.all()
     serializer_class = CustomUserCategorySerializer
 
 class CustomUserCategoryDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrAdmin]
 
     queryset = CustomUser.categories.through.objects.all()
     serializer_class = CustomUserCategorySerializer
 
 class AnswerList(generics.ListCreateAPIView):
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrAdmin]
 
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
 
 class AnswerDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrAdmin]
 
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
 
 class CustomUserDetail(APIView):
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrAdmin]
 
     def get_object(self, pk):
         try:

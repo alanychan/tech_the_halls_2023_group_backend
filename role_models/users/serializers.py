@@ -1,6 +1,17 @@
 from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
 from .models import Category, CustomUser, Question, Answer
+from django.contrib.auth.hashers import make_password
+# from random import choice
+# from string import digits, ascii_letters
+
+
+# class password_generator():
+# def generate_password():
+#     password = ''
+#     for password_length in range(8):
+#         password += choice(digits+ascii_letters)
+#     return password
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,28 +35,28 @@ class AnswerSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class CustomUserSerializer(serializers.ModelSerializer):
-    categories = CategorySerializer(many=True, read_only=True, required=False)
-    user_answers = AnswerSerializer(many=True, read_only=True, required=False)
-    question_answers = AnswerSerializer(many=True, read_only=True, required=False)
+    categories = CategorySerializer(many=True, read_only=True, required=False, allow_null=True)
+    user_answers = AnswerSerializer(many=True, read_only=True, required=False, allow_null=True)
+    question_answers = AnswerSerializer(many=True, read_only=True, required=False, allow_null=True)
 
     id = serializers.ReadOnlyField()
     username = serializers.CharField(max_length=200)
     email = serializers.EmailField()
     first_name = serializers.CharField(max_length=200)
     last_name = serializers.CharField(max_length=200)
-    password = serializers.CharField(write_only = True, required = True , validators =[validate_password])
-
-    tagline = serializers.CharField(max_length=200, required=False)
-    city = serializers.CharField(max_length=200, required=False)
-    country = serializers.CharField(max_length=200, required=False)
-    profile_pic = serializers.URLField(required=False)
-    video = serializers.URLField(required=False)
-    linkedin = serializers.URLField(required=False)
-    twitter = serializers.URLField(required=False)
-    blog = serializers.URLField(required=False)
-    job_title = serializers.CharField(max_length=200, required=False)
+    # password = serializers.CharField(write_only = True, required = True , validators =[validate_password])
+    password = serializers.CharField(write_only = True, allow_null=True)
+    tagline = serializers.CharField(max_length=200, required=False, allow_null=True)
+    city = serializers.CharField(max_length=200, required=False, allow_null=True)
+    country = serializers.CharField(max_length=200, required=False, allow_null=True)
+    profile_pic = serializers.URLField(required=False, allow_null=True)
+    video = serializers.URLField(required=False, allow_null=True)
+    linkedin = serializers.URLField(required=False, allow_null=True)
+    twitter = serializers.URLField(required=False, allow_null=True)
+    blog = serializers.URLField(required=False, allow_null=True)
+    job_title = serializers.CharField(max_length=200, required=False, allow_null=True)
     featured = serializers.BooleanField()
-    pronouns = serializers.CharField(max_length=200, required=False)
+    pronouns = serializers.CharField(max_length=200, required=False, allow_null=True)
     is_published = serializers.BooleanField(default=False, required= False)
 
     class Meta:
@@ -75,7 +86,11 @@ class CustomUserSerializer(serializers.ModelSerializer):
           pronouns = validated_data['pronouns'],
           is_published = validated_data['is_published'],
         )
-        user.set_password(validated_data['password'])
+
+        # user.set_password(validated_data['password'])
+        # user.password = generate_password()
+        user.password = make_password(user.email)
+        # user.set_password(user.password)
         user.save()
         return user
 
