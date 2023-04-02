@@ -27,17 +27,17 @@ class Question(models.Model):
 
 class CustomUser(AbstractUser):
 
-    tagline = models.CharField(max_length=200, blank=True)
-    city = models.CharField(max_length=200, blank=True)
-    country = models.CharField(max_length=200, blank=True)
-    profile_pic = models.URLField(blank=True)
-    video = models.URLField(blank=True)
-    linkedin = models.URLField(blank=True)
-    twitter = models.URLField(blank=True)
-    blog = models.URLField(blank=True)
-    job_title = models.CharField(max_length=200, blank=True)
+    tagline = models.CharField(max_length=200, blank=True, null=True)
+    city = models.CharField(max_length=200, blank=True, null=True)
+    country = models.CharField(max_length=200, blank=True, null=True)
+    profile_pic = models.URLField(blank=True, null=True)
+    video = models.URLField(blank=True, null=True)
+    linkedin = models.URLField(blank=True, null=True)
+    twitter = models.URLField(blank=True, null=True)
+    blog = models.URLField(blank=True, null=True)
+    job_title = models.CharField(max_length=200, blank=True, null=True)
     featured = models.BooleanField(default=False)
-    pronouns = models.CharField(max_length=200, blank=True)
+    pronouns = models.CharField(max_length=200, blank=True, null=True)
 
     is_published = models.BooleanField(default=False)
 

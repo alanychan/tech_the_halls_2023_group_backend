@@ -19,35 +19,49 @@ class CustomUserList(generics.ListCreateAPIView):
     #     serializer.save()
 
 class CategoryList(generics.ListCreateAPIView):
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [IsAdminOnly]
 
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
 class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAdminOnly]
+
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 class QuestionList(generics.ListCreateAPIView):
+    permission_classes = [IsAdminOnly]
+
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
 
 class QuestionDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAdminOnly]
+
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
 
 class CustomUserCategoryList(generics.ListCreateAPIView):
+    permission_classes = [IsOwnerOrReadOnly]
+
     queryset = CustomUser.categories.through.objects.all()
     serializer_class = CustomUserCategorySerializer
 
 class CustomUserCategoryDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsOwnerOrReadOnly]
+
     queryset = CustomUser.categories.through.objects.all()
     serializer_class = CustomUserCategorySerializer
 
 class AnswerList(generics.ListCreateAPIView):
+    permission_classes = [IsOwnerOrReadOnly]
+
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
 
 class AnswerDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsOwnerOrReadOnly]
+
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
 
