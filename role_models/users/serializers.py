@@ -35,17 +35,17 @@ class CustomUserSerializer(serializers.ModelSerializer):
     last_name = serializers.CharField(max_length=200)
     password = serializers.CharField(write_only = True, required = True , validators =[validate_password])
 
-    tagline = serializers.CharField(max_length=200, required=False, default="")
-    city = serializers.CharField(max_length=200, required=False, default="")
-    country = serializers.CharField(max_length=200, required=False, default="")
-    profile_pic = serializers.URLField(required=False, default="")
-    video = serializers.URLField(required=False, default="")
-    linkedin = serializers.URLField(required=False, default="")
-    twitter = serializers.URLField(required=False, default="")
-    blog = serializers.URLField(required=False, default="")
-    job_title = serializers.CharField(max_length=200, required=False, default="")
+    tagline = serializers.CharField(max_length=200, required=False)
+    city = serializers.CharField(max_length=200, required=False)
+    country = serializers.CharField(max_length=200, required=False)
+    profile_pic = serializers.URLField(required=False)
+    video = serializers.URLField(required=False)
+    linkedin = serializers.URLField(required=False)
+    twitter = serializers.URLField(required=False)
+    blog = serializers.URLField(required=False)
+    job_title = serializers.CharField(max_length=200, required=False)
     featured = serializers.BooleanField()
-    pronouns = serializers.CharField(max_length=200, required=False, default="")
+    pronouns = serializers.CharField(max_length=200, required=False)
     is_published = serializers.BooleanField(default=False, required= False)
 
     class Meta:
@@ -78,29 +78,29 @@ class CustomUserSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
-class CustomUserDetailSerializer(serializers.ModelSerializer):
+class CustomUserDetailSerializer(CustomUserSerializer):
 
     class Meta:
         model = CustomUser
-        # fields = '__all__'
-        fields = ['username', 'first_name', 'last_name', 'email', 'tagline', 'city', 'country', 'profile_pic', 'video', 'linkedin', 'twitter', 'blog', 'job_title', 'featured','pronouns', 'categories', 'user_answers',  'is_published']
+        fields = '__all__'
+        # fields = ['username', 'first_name', 'last_name', 'email', 'tagline', 'city', 'country', 'profile_pic', 'video', 'linkedin', 'twitter', 'blog', 'job_title', 'featured','pronouns', 'categories', 'user_answers',  'is_published']
 
     def update(self, instance, validated_data):
         # instance.username = validated_data.get('username', instance.username)
         instance.first_name = validated_data.get('first_name', instance.first_name)
         instance.last_name = validated_data.get('last_name', instance.last_name)
         # instance.email = validated_data.get('email', instance.email)
-        instance.tagline = validated_data.get('tagline', instance.tagline),
-        instance.city = validated_data.get('city', instance.city),
-        instance.country = validated_data.get('country', instance.country),
-        instance.profile_pic = validated_data.get('profile_pic', instance.profile_pic),
-        instance.video = validated_data.get('video', instance.video),
-        instance.linkedin = validated_data.get('linkedin', instance.linkedin),
-        instance.twitter = validated_data.get('twitter', instance.twitter),
-        instance.blog = validated_data.get('blog', instance.blog),
-        instance.job_title = validated_data.get('job_title', instance.job_title),
-        instance.pronouns = validated_data.get('pronouns', instance.pronouns),
-        # instance.is_published = validated_data.get('is_published', instance.is_published),
+        instance.tagline = validated_data.get('tagline', instance.tagline)
+        instance.city = validated_data.get('city', instance.city)
+        instance.country = validated_data.get('country', instance.country)
+        instance.profile_pic = validated_data.get('profile_pic', instance.profile_pic)
+        instance.video = validated_data.get('video', instance.video)
+        instance.linkedin = validated_data.get('linkedin', instance.linkedin)
+        instance.twitter = validated_data.get('twitter', instance.twitter)
+        instance.blog = validated_data.get('blog', instance.blog)
+        instance.job_title = validated_data.get('job_title', instance.job_title)
+        instance.pronouns = validated_data.get('pronouns', instance.pronouns)
+        instance.is_published = validated_data.get('is_published', instance.is_published)
 
         if password := validated_data.get('password'):
             instance.set_password(password)
