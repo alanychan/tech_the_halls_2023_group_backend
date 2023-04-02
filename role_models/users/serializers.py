@@ -54,26 +54,25 @@ class CustomUserSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         user = CustomUser.objects.create(
-          email = validated_data['email'],
-          username = validated_data['username'],
-          first_name = validated_data['first_name'],
-          last_name = validated_data['last_name'],
-          tagline = validated_data['tagline'],
-          city = validated_data['city'],
-          country = validated_data['country'],
-          profile_pic = validated_data['profile_pic'],
-          video = validated_data['video'],
-          linkedin = validated_data['linkedin'],
-          twitter = validated_data['twitter'],
-          blog = validated_data['blog'],
-          job_title = validated_data['job_title'],
-          featured = validated_data['featured'],
-          pronouns = validated_data['pronouns']
+            email = validated_data['email'],
+            username = validated_data['username'],
+            first_name = validated_data['first_name'],
+            last_name = validated_data['last_name'],
+            tagline = validated_data['tagline'],
+            city = validated_data['city'],
+            country = validated_data['country'],
+            profile_pic = validated_data['profile_pic'],
+            video = validated_data['video'],
+            linkedin = validated_data['linkedin'],
+            twitter = validated_data['twitter'],
+            blog = validated_data['blog'],
+            job_title = validated_data['job_title'],
+            featured = validated_data['featured'],
+            pronouns = validated_data['pronouns']
         )
         user.set_password(validated_data['password'])
         user.save()
-        return user    
-     
+        return user
 class CustomUserDetailSerializer(CustomUserSerializer):
 
     class Meta:
@@ -87,18 +86,17 @@ class CustomUserDetailSerializer(CustomUserSerializer):
         instance.email = validated_data.get('email', instance.email)
         # instance.categories = validated_data.get('categories', instance.categories)
         # instance.user_answers = validated_data.get('user_answers', instance.user_answers)
-        instance.tagline = validated_data.get('tagline', instance.tagline),
-        instance.city = validated_data.get('city', instance.city),
-        instance.country = validated_data.get('country', instance.country),
-        instance.profile_pic = validated_data.get('profile_pic', instance.profile_pic),
-        instance.video = validated_data.get('video', instance.video),
-        instance.linkedin = validated_data.get('linkedin', instance.linkedin),
-        instance.twitter = validated_data.get('twitter', instance.twitter),
-        instance.blog = validated_data.get('blog', instance.blog),
-        instance.job_title = validated_data.get('job_title', instance.job_title),
-        instance.featured = validated_data.get('featured', instance.featured),
+        instance.tagline = validated_data.get('tagline', instance.tagline)
+        instance.city = validated_data.get('city', instance.city)
+        instance.country = validated_data.get('country', instance.country)
+        instance.profile_pic = validated_data.get('profile_pic', instance.profile_pic)
+        instance.video = validated_data.get('video', instance.video)
+        instance.linkedin = validated_data.get('linkedin', instance.linkedin)
+        instance.twitter = validated_data.get('twitter', instance.twitter)
+        instance.blog = validated_data.get('blog', instance.blog)
+        instance.job_title = validated_data.get('job_title', instance.job_title)
+        instance.featured = validated_data.get('featured', instance.featured)
         instance.pronouns = validated_data.get('pronouns', instance.pronouns)
-        
         
         if password := validated_data.get('password'):
             instance.set_password(password)
