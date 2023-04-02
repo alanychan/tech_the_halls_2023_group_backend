@@ -57,6 +57,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = CustomUser.objects.create(
+
           email = validated_data['email'],
           username = validated_data['username'],
           first_name = validated_data['first_name'],
@@ -99,6 +100,7 @@ class CustomUserDetailSerializer(CustomUserSerializer):
         instance.twitter = validated_data.get('twitter', instance.twitter)
         instance.blog = validated_data.get('blog', instance.blog)
         instance.job_title = validated_data.get('job_title', instance.job_title)
+        instance.featured = validated_data.get('featured', instance.featured)
         instance.pronouns = validated_data.get('pronouns', instance.pronouns)
         instance.is_published = validated_data.get('is_published', instance.is_published)
 
