@@ -16,5 +16,5 @@ urlpatterns = [
 
     path('users-answers/', views.AnswerList.as_view(), name='quetions-answers'),
 
-    #  path('password-generator/', views.passwordGenerator, name='password-generator'),
+    #path('password-generator/', views.passwordGenerator, name='password-generator'),
 ]
