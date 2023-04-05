@@ -40,35 +40,37 @@ class CustomUserSerializer(serializers.ModelSerializer):
     question_answers = AnswerSerializer(many=True, read_only=True, required=False, allow_null=True)
 
     id = serializers.ReadOnlyField()
-    username = serializers.CharField(max_length=200)
-    email = serializers.EmailField()
+
     first_name = serializers.CharField(max_length=200)
     last_name = serializers.CharField(max_length=200)
+    username = serializers.CharField(max_length=200)
+    email = serializers.EmailField()
     # password = serializers.CharField(write_only = True, required = True , validators =[validate_password])
     password = serializers.CharField(write_only = True, allow_null=True)
-    tagline = serializers.CharField(max_length=200, required=False, allow_null=True)
+
+    blog = serializers.URLField(max_length=2048, required=False, allow_null=True)
     city = serializers.CharField(max_length=200, required=False, allow_null=True)
     country = serializers.CharField(max_length=200, required=False, allow_null=True)
-    profile_pic = serializers.URLField(required=False, allow_null=True)
-    video = serializers.URLField(required=False, allow_null=True)
-    linkedin = serializers.URLField(required=False, allow_null=True)
-    twitter = serializers.URLField(required=False, allow_null=True)
-    blog = serializers.URLField(required=False, allow_null=True)
+    featured = serializers.BooleanField(default=False, required=False)
+    is_active = serializers.BooleanField(default=False)
+    is_published = serializers.BooleanField(default=False, required=False)
     job_title = serializers.CharField(max_length=200, required=False, allow_null=True)
-    featured = serializers.BooleanField()
+    linkedin = serializers.URLField(max_length=2048, required=False, allow_null=True)
+    profile_pic = serializers.URLField(max_length=2048, required=False, allow_null=True)
     pronouns = serializers.CharField(max_length=200, required=False, allow_null=True)
-    is_published = serializers.BooleanField(default=False, required= False)
+    tagline = serializers.CharField(max_length=1000, required=False, allow_null=True)
+    twitter = serializers.URLField(max_length=2048, required=False, allow_null=True)
+    video = serializers.URLField(max_length=2048, required=False, allow_null=True)
 
     class Meta:
         model = CustomUser
         # fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name']
-        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'password', 'tagline', 'city', 'country', 'profile_pic', 'video', 'linkedin', 'twitter', 'blog', 'job_title', 'featured','pronouns', 'categories', 'user_answers', 'question_answers', 'is_published']
+        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'password', 'tagline', 'city', 'country', 'profile_pic', 'video', 'linkedin', 'twitter', 'blog', 'job_title', 'featured', 'pronouns', 'categories', 'user_answers', 'question_answers', 'is_published', 'is_active']
         extra_kwargs = {'password': {'write_only': True}, "id": {"read_only": True}, 'first_name': {'required': True},'last_name': {'required': True},'username': {'required': True}}
 
 
     def create(self, validated_data):
         user = CustomUser.objects.create(
-
           email = validated_data['email'],
           username = validated_data['username'],
           first_name = validated_data['first_name'],
@@ -85,12 +87,11 @@ class CustomUserSerializer(serializers.ModelSerializer):
           featured = validated_data['featured'],
           pronouns = validated_data['pronouns'],
           is_published = validated_data['is_published'],
+          is_active = validated_data['is_active'],
         )
-
-        # user.set_password(validated_data['password'])
         # user.password = generate_password()
-        user.password = make_password(user.email)
-        # user.set_password(user.password)
+        # user.password = make_password(user.email)
+        user.set_password(validated_data['password'])
         user.save()
         return user
 
@@ -118,6 +119,7 @@ class CustomUserDetailSerializer(CustomUserSerializer):
         instance.featured = validated_data.get('featured', instance.featured)
         instance.pronouns = validated_data.get('pronouns', instance.pronouns)
         instance.is_published = validated_data.get('is_published', instance.is_published)
+        instance.is_active = validated_data.get('is_active', instance.is_active)
 
         if password := validated_data.get('password'):
             instance.set_password(password)
