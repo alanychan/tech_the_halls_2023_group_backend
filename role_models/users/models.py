@@ -37,7 +37,7 @@ class CustomUser(AbstractUser):
     blog = models.URLField(max_length=1024, blank=True, null=True)
     job_title = models.CharField(max_length=200, blank=True, null=True)
     featured = models.BooleanField(default=False)
-    pronouns = models.CharField(max_length=200, blank=True, null=True)
+    pronouns = models.CharField(max_length=100, blank=True, null=True)
 
     is_published = models.BooleanField(default=False)
 

@@ -57,7 +57,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
     job_title = serializers.CharField(max_length=200, required=False, allow_null=True)
     linkedin = serializers.URLField(max_length=2048, required=False, allow_null=True)
     profile_pic = serializers.URLField(max_length=2048, required=False, allow_null=True)
-    pronouns = serializers.CharField(max_length=200, required=False, allow_null=True)
+    pronouns = serializers.CharField(max_length=100, required=False, allow_null=True)
     tagline = serializers.CharField(max_length=1000, required=False, allow_null=True)
     twitter = serializers.URLField(max_length=2048, required=False, allow_null=True)
     video = serializers.URLField(max_length=2048, required=False, allow_null=True)
