@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404
-from rest_framework import status, generics, filters
+from rest_framework import status, generics, filters, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .permissions import  IsOwnerOrAdmin, IsAdminOnly
+from .permissions import  IsOwnerOrAdmin
 from .serializers import CustomUserSerializer, CustomUserDetailSerializer, CategorySerializer, CustomUserCategorySerializer
 from .serializers import QuestionSerializer, AnswerSerializer
 from .models import CustomUser, Category, Question, Answer
@@ -31,32 +31,29 @@ class CustomUserList(generics.ListCreateAPIView):
     #     serializer.save()
 
 class CategoryList(generics.ListCreateAPIView):
-    permission_classes = [IsAdminOnly]
+    permission_classes = [permissions.IsAdminUser]
 
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
 class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAdminOnly]
+    permission_classes = [permissions.IsAdminUser]
 
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    def perform_update(self, serializer):
-        serializer.save()
+
 class QuestionList(generics.ListCreateAPIView):
-    permission_classes = [IsAdminOnly]
+    permission_classes = [permissions.IsAdminUser]
 
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
 
 class QuestionDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAdminOnly]
+    permission_classes = [permissions.IsAdminUser]
 
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
 
-    def perform_update(self, serializer):
-        serializer.save()
 
 class CustomUserCategoryList(generics.ListCreateAPIView):
     permission_classes = [IsOwnerOrAdmin]
