@@ -29,15 +29,21 @@ class QuestionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class AnswerSerializer(serializers.ModelSerializer):
-
+    question = serializers.SerializerMethodField()
     class Meta:
         model = Answer
         fields = '__all__'
+
+    def get_question(self, instance):
+        return instance.question.question
+
 
 class CustomUserSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(many=True, read_only=True, required=False, allow_null=True)
     user_answers = AnswerSerializer(many=True, read_only=True, required=False, allow_null=True)
     question_answers = AnswerSerializer(many=True, read_only=True, required=False, allow_null=True)
+
+
 
     id = serializers.ReadOnlyField()
 
@@ -94,6 +100,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
 
 class CustomUserDetailSerializer(CustomUserSerializer):
 
