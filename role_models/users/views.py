@@ -41,8 +41,7 @@ class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    def perform_update(self, serializer):
-        serializer.save()
+
 class QuestionList(generics.ListCreateAPIView):
     permission_classes = [IsAdminOnly]
 
@@ -55,8 +54,6 @@ class QuestionDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
 
-    def perform_update(self, serializer):
-        serializer.save()
 
 class CustomUserCategoryList(generics.ListCreateAPIView):
     permission_classes = [IsOwnerOrAdmin]
