@@ -20,7 +20,7 @@ from .models import CustomUser, Category, Question, Answer
 
 
 class CustomUserList(generics.ListCreateAPIView):
-    permission_classes = [IsOwnerOrAdmin]
+    # permission_classes = [IsOwnerOrAdmin]
 
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
@@ -31,56 +31,56 @@ class CustomUserList(generics.ListCreateAPIView):
     #     serializer.save()
 
 class CategoryList(generics.ListCreateAPIView):
-    permission_classes = [permissions.IsAdminUser]
+    # permission_classes = [permissions.IsAdminUser]
 
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
 class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [permissions.IsAdminUser]
+    # permission_classes = [permissions.IsAdminUser]
 
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
 class QuestionList(generics.ListCreateAPIView):
-    permission_classes = [permissions.IsAdminUser]
+    # permission_classes = [permissions.IsAdminUser]
 
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
 
 class QuestionDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [permissions.IsAdminUser]
+    # permission_classes = [permissions.IsAdminUser]
 
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
 
 
 class CustomUserCategoryList(generics.ListCreateAPIView):
-    permission_classes = [IsOwnerOrAdmin]
+    # permission_classes = [IsOwnerOrAdmin]
 
     queryset = CustomUser.categories.through.objects.all()
     serializer_class = CustomUserCategorySerializer
 
 class CustomUserCategoryDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsOwnerOrAdmin]
+    # permission_classes = [IsOwnerOrAdmin]
 
     queryset = CustomUser.categories.through.objects.all()
     serializer_class = CustomUserCategorySerializer
 
 class AnswerList(generics.ListCreateAPIView):
-    permission_classes = [IsOwnerOrAdmin]
+    # permission_classes = [IsOwnerOrAdmin]
 
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
 
 class AnswerDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsOwnerOrAdmin]
+    # permission_classes = [IsOwnerOrAdmin]
 
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
 
 class CustomUserDetail(APIView):
-    permission_classes = [IsOwnerOrAdmin]
+    # permission_classes = [IsOwnerOrAdmin]
 
     def get_object(self, pk):
         try:
