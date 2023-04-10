@@ -12,7 +12,7 @@ from rest_framework.permissions import IsAdminUser
 
 # Create your views here.
 class HeroList(APIView):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get(self, request):
         hero = Hero.objects.all()
@@ -32,7 +32,7 @@ class HeroList(APIView):
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
-@permission_classes([IsAdminUser])
+# @permission_classes([IsAdminUser])
 def hero_detail_view(request, pk):
 
     try:
