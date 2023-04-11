@@ -29,13 +29,17 @@ class QuestionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class AnswerSerializer(serializers.ModelSerializer):
-    question = serializers.SerializerMethodField()
+    # question = QuestionSerializer()
+    # question = serializers.SerializerMethodField()
     class Meta:
         model = Answer
         fields = '__all__'
 
-    def get_question(self, instance):
-        return instance.question.question
+    # def get_question(self, instance):
+    #     return instance.question.question
+
+    # def get_id(self, instance):
+    #     return instance.question.id
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
