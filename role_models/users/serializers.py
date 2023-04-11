@@ -30,13 +30,13 @@ class QuestionSerializer(serializers.ModelSerializer):
 
 class AnswerSerializer(serializers.ModelSerializer):
     # question = QuestionSerializer()
-    # question = serializers.SerializerMethodField()
+    question = serializers.SerializerMethodField()
     class Meta:
         model = Answer
         fields = '__all__'
 
-    # def get_question(self, instance):
-    #     return instance.question.question
+    def get_question(self, instance):
+        return instance.question.question
 
     # def get_id(self, instance):
     #     return instance.question.id
